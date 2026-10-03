@@ -1,0 +1,2 @@
+-r llm_client-requirements.txt
+litellm==1.100.1

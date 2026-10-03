@@ -1,0 +1,6 @@
+-r ../services/model/litellm_wrapper-requirements.txt
+langchain-nvidia-ai-endpoints==1.2.1
+PyYAML==6.0.2
+fastembed==0.8.0
+pymupdf==1.27.2.2
+arxiv==2.4.1

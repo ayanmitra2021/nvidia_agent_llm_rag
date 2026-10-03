@@ -1,0 +1,38 @@
+## For networking
+gunicorn==23.0.0
+pandas==2.3.3
+httpx-sse==0.4.3
+httpx==0.28.1
+sse_starlette==3.0.3
+
+# pip list | grep lang
+langchain==0.3.27
+langchain-community==0.3.31
+langchain-core==0.3.80
+langchain-nvidia-ai-endpoints==0.3.19
+langchain-openai==0.3.35
+langchain-text-splitters==0.3.11
+langchain-unstructured==0.1.6
+langchainhub==0.1.21
+langdetect==1.0.9
+langgraph==1.0.1
+langgraph-checkpoint==3.0.1
+langgraph-prebuilt==1.0.1
+langgraph-sdk==0.2.10
+langserve==0.3.3
+langsmith==0.4.47
+
+wikipedia==1.4.0
+nbformat==5.10.4
+
+unstructured==0.18.21
+unstructured-client==0.42.4
+unstructured_inference==1.1.2
+unstructured[pdf]
+
+## For Arxiv
+arxiv==2.3.1
+pymupdf
+
+## Gradio
+gradio==6.0.0

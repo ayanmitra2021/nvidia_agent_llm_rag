@@ -1,0 +1,210 @@
+version: '2.3'
+
+## To Build The Repo: Execute the following command from directory ABOVE notebook repository
+## Dev Environment:  docker-compose build && docker-compose up -d
+## Prod Environment: docker-compose -f docker-compose.yml -f docker-compose.deployment.yml build && ... 
+
+## Volume shared by frontend and assessment microservices. Frontend must write a file 
+## for the assessment microservice to give you credit. Good luck!!
+volumes:
+  assessment_results:
+  synth:
+  hidden:
+  model_cache:
+
+services:  
+
+  ## Deliver jupyter labs interface for students.
+  lab:
+    container_name: jupyter-notebook-server  
+    init: true
+    volumes:  ## Allow /dli/task in container to reference ./notebooks/ in host
+      - ./notebooks/:/dli/task/
+      - ./:/dli/task/composer/deploy/:rw
+      - hidden:/dli/task/composer/deploy/assessment:rw
+      - hidden:/dli/task/composer/deploy/.solution:rw
+      - synth:/dli/task/composer/synth:rw
+    ports:  ## Expose the following ports for various features 
+      - "7860:7860"
+      - "9010:9010"
+      - "9011:9011"
+      - "9012:9012"
+    environment:  ## Change default base_url/mode for ChatNVIDIA etc.
+      - NVIDIA_DEFAULT_MODE=open
+      - NVIDIA_BASE_URL=http://llm_client:9000/v1
+      - OPENAI_BASE_URL=http://llm_client:9000/v1
+      - NVIDIA_API_KEY=nvapi-course-placeholder
+      - OPENAI_API_KEY=course-placeholder
+      - JUPYTER_TOKEN
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:8888/lab/api || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 40
+      start_period: 30s
+
+  ## Deliver a server to interface with host docker orchestration
+  docker_router:
+    container_name: docker_router
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  ## Give access to host docker
+    ports:
+      - "8070:8070"
+
+  # The public facade owns no provider credentials or provider registry.
+  llm_client:
+    ports:
+      - "9000:9000"
+    environment:
+      - LLM_WRAPPER_URL=http://litellm_wrapper:9001
+      - LLM_LOCAL_RETRIEVAL=true
+      - LLM_USE_WRAPPER_DEFAULT=true
+      - LLM_AGENT_ALIAS_ENABLED=false
+      - LLM_REQUIRED_MODELS=["nvidia/nemotron-3.5-lightning-30b-a3b"]
+      - LLM_COURSE_MODELS=["nvidia/nemotron-3.5-lightning-30b-a3b","meta/llama-3.2-11b-vision-instruct"]
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
+    depends_on:
+      litellm_wrapper:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:9000/health', timeout=5)"]
+      interval: 10s
+      timeout: 6s
+      retries: 12
+
+  litellm_wrapper:
+    environment:
+      - LLM_CACHE_NAMESPACE=c-fx-15-v1:shared-runtime-v1
+      - LLM_CACHE_MAX_STREAM_DELAY=2
+      - LLM_CACHE_MAX_RESPONSE_DELAY=0
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
+    volumes:
+      - model_cache:/var/lib/llm
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:9001/health', timeout=5)"]
+      interval: 10s
+      timeout: 6s
+      retries: 12
+
+  ##############################################################################
+  ## Deliver your gradio frontend for assessment and web ui
+  frontend: 
+    container_name: frontend
+    volumes: 
+      - ./notebooks/:/notebooks/
+      - assessment_results:/results
+    ports:
+      - "8090:8090"
+    depends_on: 
+      - "lab"
+
+  ## Reverse-proxy option. If you can't access port 8090 in browser, try /8090
+  frontend_rproxy: 
+    container_name: frontend_rproxy
+    volumes: 
+      - ./notebooks/:/notebooks/
+      - assessment_results:/results
+    ports:
+      - "8091:8091"
+    depends_on: 
+      - "lab"
+    entrypoint: "gunicorn frontend_server_rproxy:app \
+        --worker-class uvicorn.workers.UvicornWorker \
+        --workers 1 \
+        --bind 0.0.0.0:8091 \
+        --log-level info"
+
+  # chatbot_rproxy: 
+  #   container_name: chatbot_rproxy
+  #   volumes: 
+  #     - ./notebooks/:/notebooks/
+  #     - ./notebooks/imgs/:/web/imgs
+  #     - ./notebooks/slides/:/web/slides
+  #   ports:
+  #     - "8998:8998"
+  #   depends_on: 
+  #     - "lab"
+  #   entrypoint: "gunicorn frontend_server_rproxy:app \
+  #       --worker-class uvicorn.workers.UvicornWorker \
+  #       --workers 3 \
+  #       --bind 0.0.0.0:8998 \
+  #       --log-level info"
+
+  #############################################################################
+  ## Other Stuff: DLI-Specific
+
+  ## Modifier service. Does nothing in dev. Removes solution component in prod
+  mod:
+    container_name: modifier
+    image: python:3.10-slim
+    volumes: 
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./notebooks/:/notebooks/
+    depends_on: 
+      - "frontend"
+
+  ## Assessment microservice. Checks for assignment completion
+  assessment:
+    image: python:3.10-slim
+    volumes:
+      - assessment_results:/dli/assessment_results/
+      - ./assessment:/dli/assessment
+    entrypoint: ["/bin/sh", "-c"]
+    command: [". /dli/assessment/entrypoint.assessment.sh"]
+
+  ## Reverse-proxy (serving the front page) service
+  nginx:
+    image: nginx:1.15.12-alpine
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - dozzle
+      - jaeger
+      - lab
+
+  # ── Chatbot ─────────────────────────────────────────────────────────
+  chatbot:
+    volumes:
+      - ./:/docs
+      - synth:/docs/synth
+      - hidden:/docs/assessment:rw
+      - hidden:/docs/.solution:rw
+    ports:
+      - "8990:8990"
+    depends_on:
+      - lab
+    environment:
+      - PORT=8990
+
+  # ── Observability: Logs ─────────────────────────────────────────────
+  dozzle:
+    environment:
+      - DOZZLE_BASE=/lab/dozzle
+    image: amir20/dozzle:latest
+    ports:
+      - "9999:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: unless-stopped
+
+
+
+  # ── Observability: Tracing ──────────────────────────────────────────
+  jaeger:
+    image: jaegertracing/all-in-one:1.76.0
+    ports:
+      - "16686:16686"
+      - "4317:4317"
+      - "4318:4318"
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+      - LOG_LEVEL=info
+      - QUERY_BASE_PATH=/jaeger
+    restart: unless-stopped
+
+
+networks:
+  default:
+    name: nvidia-llm

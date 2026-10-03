@@ -1,0 +1,14 @@
+{
+  "schema": "dli-runtime-quality-report/1",
+  "findings": [
+    {
+      "component": "structured extraction",
+      "record_key": "5a7e5dc3c2936d69992befdc683d9b22653bf0b3199d770289ddc502c80099c7",
+      "observed_failure": "A complete summary JSON object was followed by an extra closing brace. Pydantic parsing failed.",
+      "probable_cause": "Unconstrained generation produced malformed JSON. Retrying the unchanged request replayed the same persistent cache entry.",
+      "resolution": "One schema-error fallback adds a formatting repair instruction, creating a distinct cacheable request. The schema stays enforced and a second invalid answer remains an error.",
+      "record_disposition": "Historical capture retained for audit; never added to the vendored response bundle or relabeled as a valid answer.",
+      "verification": "Both extractor definitions passed malformed-response and bounded-retry regressions. Notebook 5 completed against real services after the repair."
+    }
+  ]
+}

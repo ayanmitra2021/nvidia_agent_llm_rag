@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="same-origin">
+<title>NVIDIA DLI</title>
+<style>
+:root{color-scheme:light dark;font-family:Arial,Helvetica,sans-serif;color:CanvasText;background:Canvas;line-height:1.5;--green:#507d00;--border:#8885}
+@media(prefers-color-scheme:dark){:root{--green:#76b900}}
+body{margin:0}main{max-width:760px;margin:8vh auto;padding:24px}header{border-bottom:3px solid #76b900;padding-bottom:16px;font-size:14px}h1{font-size:28px;font-weight:600;line-height:1.25;margin:28px 0}form{display:flex;gap:16px;align-items:center;flex-wrap:wrap}select,button{font:inherit;border-radius:2px;padding:8px 12px}select{color:inherit;background:Canvas;border:1px solid var(--border);margin-left:8px}button{background:#76b900;color:#111;border:1px solid transparent;cursor:pointer;font-weight:600}button:disabled{opacity:.6;cursor:wait}a{color:var(--green);text-underline-offset:3px}a:focus-visible,button:focus-visible,select:focus-visible{outline:2px solid var(--green);outline-offset:3px}ul{list-style:none;padding:0;margin:28px 0 12px}li{display:flex;gap:16px;justify-content:space-between;border-bottom:1px solid var(--border);padding:8px 0}.available{color:var(--green)}small{display:block;opacity:.8}#message:empty{display:none}#message{white-space:pre-wrap} @media(max-width:480px){main{margin:16px auto}h1{font-size:24px}}
+</style>
+</head>
+<body><main>
+<header>NVIDIA <strong>Deep Learning Institute</strong></header>
+<h1 id="title">Loading course…</h1>
+<form id="entry"><label><span id="language-label">Language</span><select id="language" disabled></select></label><button id="enter" disabled>Open course</button></form>
+<p id="message" role="status" aria-live="polite"></p>
+<p id="recovery" hidden><a id="return-notebook"></a></p>
+<ul id="services" aria-label="Services"></ul>
+<small id="scope"></small>
+</main>
+<script>
+(async () => {
+  const texts = {
+    en:{resume:'Continue in notebook',language:'Language',enter:'Open course',loading:'Opening course…',jupyter:'Notebooks',models:'Model relay',logs:'Logs (Dozzle)',traces:'Traces',available:'Available',unavailable:'Unavailable',checking:'Checking…',scope:'Service availability. Model generation is checked when you run an exercise.',failed:'Could not load course settings. Reload this page to retry.'},
+    zh:{resume:'返回 Notebook 继续',language:'语言',enter:'进入课程',loading:'正在打开课程…',jupyter:'Notebook',models:'模型中继服务',logs:'日志 (Dozzle)',traces:'调用追踪',available:'可用',unavailable:'不可用',checking:'检查中…',scope:'显示服务是否可用。模型生成将在运行练习时验证。',failed:'无法加载课程设置。请刷新页面重试。'},
+    tw:{resume:'返回 Notebook 繼續',language:'語言',enter:'進入課程',loading:'正在開啟課程…',jupyter:'Notebook',models:'模型轉送服務',logs:'日誌 (Dozzle)',traces:'呼叫追蹤',available:'可用',unavailable:'無法使用',checking:'檢查中…',scope:'顯示服務是否可用。模型生成將在執行練習時驗證。',failed:'無法載入課程設定。請重新整理頁面再試。'},
+    ja:{resume:'ノートブックに戻る',language:'言語',enter:'コースを開く',loading:'コースを開いています…',jupyter:'ノートブック',models:'モデル中継サービス',logs:'ログ (Dozzle)',traces:'トレース',available:'利用可能',unavailable:'利用不可',checking:'確認中…',scope:'サービスの稼働状況です。モデルの応答は演習の実行時に確認します。',failed:'コース設定を読み込めませんでした。ページを再読み込みしてください。'}
+  };
+  const base = new URL('./', location.href);
+  // The login cookie now owns authentication. Never carry the launch token into links.
+  history.replaceState(null, '', location.pathname);
+  const select=document.getElementById('language'), enter=document.getElementById('enter'), message=document.getElementById('message');
+  let current, statuses={}, busy=false;
+  async function request(endpoint, body) {
+    const controller=new AbortController(), timer=setTimeout(()=>controller.abort(),body?65000:10000);
+    try {
+      const xsrf=document.cookie.split('; ').find(value=>value.startsWith('_xsrf='));
+      const response=await fetch(new URL(endpoint,base),{method:body?'POST':'GET',credentials:'same-origin',redirect:'error',signal:controller.signal,headers:{'Content-Type':'application/json',...(xsrf?{'X-XSRFToken':decodeURIComponent(xsrf.slice(6))}:{})},...(body?{body:JSON.stringify(body)}:{})});
+      if(!response.headers.get('Content-Type')?.includes('application/json'))throw new Error('Session unavailable. Reload this page to sign in.');
+      const data=await response.json();if(!response.ok){const error=new Error(data.message||data.reason||'Request failed ('+response.status+')');error.status=response.status;throw error;}return data;
+    } finally { clearTimeout(timer); }
+  }
+  function render(){
+    const language=select.value,t=texts[language];if(!t)throw new Error('Missing foyer translation: '+language);
+    document.documentElement.lang=current.locale_tags[language];document.title=current.titles[language];document.getElementById('title').textContent=current.titles[language];
+    document.getElementById('return-notebook').textContent=t.resume;document.getElementById('return-notebook').href=new URL('lab/tree/'+current.entrypoint.split('/').map(encodeURIComponent).join('/'),base);
+    document.getElementById('language-label').textContent=t.language;enter.textContent=busy?t.loading:t.enter;document.getElementById('scope').textContent=t.scope;
+    const list=document.getElementById('services');list.replaceChildren();
+    for(const service of [{id:'jupyter'},...current.services]){
+      const item=document.createElement('li'),name=document.createElement(service.href?'a':'span'),state=document.createElement('span');name.textContent=t[service.id];if(service.href)name.href=new URL(service.href,base);
+      const value=statuses[service.id]||'checking';state.textContent=t[value];state.className=value;item.append(name,state);list.append(item);
+    }
+  }
+  async function poll(){
+    try { const value=await request('api/course/status');statuses=Object.fromEntries(value.services.map(item=>[item.id,item.state])); }
+    catch(_){statuses=Object.fromEntries(['jupyter',...current.services.map(item=>item.id)].map(id=>[id,'unavailable']));}
+    render();setTimeout(()=>{if(!document.hidden)poll();else setTimeout(poll,30000);},30000);
+  }
+  select.addEventListener('change',render);
+  document.getElementById('entry').addEventListener('submit',async event=>{
+    event.preventDefault();if(busy)return;busy=true;select.disabled=enter.disabled=true;message.textContent='';document.getElementById('recovery').hidden=true;render();
+    try {
+      current=await request('api/course/language');
+      if(select.value!==current.language){await request('api/course/language',{course:'',language:select.value,mode:current.mode,source:'foyer'});}
+      location.assign(new URL('lab/tree/'+current.entrypoint.split('/').map(encodeURIComponent).join('/'),base));
+    }catch(error){document.getElementById('recovery').hidden=error.status!==409;const key=Object.keys(current.messages.en).find(key=>current.messages.en[key]===error.message);message.textContent=key?current.messages[select.value][key]:error.message;busy=false;select.disabled=enter.disabled=false;render();}
+  });
+  try {
+    current=await request('api/course/language');
+    for(const language of current.languages){if(!texts[language.value])throw new Error('Missing foyer translation: '+language.value);select.add(new Option(language.label,language.value));}
+    select.value=current.language;select.disabled=enter.disabled=false;render();poll();
+  }catch(error){message.textContent=texts.en.failed+' '+error.message;}
+})();
+</script></body></html>

@@ -1,0 +1,15 @@
+{
+  "ServerApp": {
+    "jpserver_extensions": {
+      "course_language_server": true
+    }
+  },
+  "LabApp": {
+    "expose_app_in_browser": true
+  },
+  "IdentityProvider": {
+    "cookie_options": {
+      "path": "/"
+    }
+  }
+}

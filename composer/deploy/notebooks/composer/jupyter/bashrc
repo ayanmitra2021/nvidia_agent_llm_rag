@@ -1,0 +1,107 @@
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# (Clean prompt + standard QoL; good in JupyterLab terminals)
+
+# If not running interactively, don't do anything
+case "$-" in
+  *i*) ;;
+  *) return ;;
+esac
+
+# --------------------------------------------------------------------
+# History / shell behavior QoL
+# --------------------------------------------------------------------
+HISTCONTROL=ignoredups:ignorespace
+shopt -s histappend
+HISTSIZE=1000
+HISTFILESIZE=2000
+shopt -s checkwinsize
+
+# Make `less` more friendly for non-text input files
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+# Identify chroot (used in prompt/title)
+if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+  debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# --------------------------------------------------------------------
+# Prompt (clean, low-brightness; works in light + dark terminals)
+# --------------------------------------------------------------------
+__has_color() {
+  command -v tput >/dev/null 2>&1 || return 1
+  local c
+  c=$(tput colors 2>/dev/null || echo 0)
+  [ "$c" -ge 8 ]
+}
+
+__has_truecolor() {
+  [ "${COLORTERM:-}" = "truecolor" ] || [ "${COLORTERM:-}" = "24bit" ]
+}
+
+# ANSI escapes (wrapped for bash prompt)
+__c_reset='\[\e[0m\]'
+
+# Muted defaults (no bold; avoids glare on light themes)
+__c_tag='\[\e[0;34m\]'   # blue
+__c_path='\[\e[0;32m\]'  # green
+
+# If truecolor, use darker/more muted tones
+if __has_truecolor; then
+  __c_tag='\[\e[38;2;0;92;160m\]'      # muted blue
+  __c_path='\[\e[38;2;0;120;90m\]'     # muted green/teal
+fi
+
+# If no color support, disable color sequences
+if ! __has_color; then
+  __c_tag=''
+  __c_path=''
+  __c_reset=''
+fi
+
+NAME="DLI"
+PS1="${__c_tag}${NAME}${__c_reset}: ${__c_path}\w\$${__c_reset} "
+
+# Xterm/rxvt title: user@host:dir (handy in multi-terminal setups)
+case "$TERM" in
+  xterm*|rxvt*)
+    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+    ;;
+esac
+
+# --------------------------------------------------------------------
+# Colors for common tools + aliases
+# --------------------------------------------------------------------
+if [ -x /usr/bin/dircolors ]; then
+  if [ -r ~/.dircolors ]; then
+    eval "$(dircolors -b ~/.dircolors)"
+  else
+    eval "$(dircolors -b)"
+  fi
+
+  alias ls='ls --color=auto'
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
+fi
+
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# User aliases (optional)
+if [ -f ~/.bash_aliases ]; then
+  . ~/.bash_aliases
+fi
+
+# Programmable completion (optional)
+# (Uncomment if you install bash-completion in the image)
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+  . /etc/bash_completion
+fi
+
+# Cleanup helpers
+unset -f __has_color __has_truecolor
+unset __c_tag __c_path __c_reset NAME
+
+VENV_BIN="/root/.venv/bin"
+export PATH="$VENV_BIN:$PATH"

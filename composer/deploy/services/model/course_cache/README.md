@@ -1,0 +1,9 @@
+# Vendored course responses
+
+Enabled by default. Set `LLM_COURSE_CACHE_ENABLED=false` on the private wrapper or JSON request parameter `use_course_cache=false` to disable bundle reuse. SDK-added HTTP cache headers are ignored unless `LLM_CACHE_RESPECT_HEADERS=true`. The bundle contains recorded NVIDIA and Nebius responses to reviewed course scenarios. Uncovered requests continue to the configured live provider. `use_cache=false` bypasses both cache layers.
+
+Explicit nonzero temperature automatically cycles recorded responses for the exact same input and settings when no seed is supplied; seeded requests keep a stable recording. `cache_sample=true` also enables this behavior explicitly. `cache_sample_index` selects a particular recorded sample. When no compatible recording is available, sampling uses the live provider. `dli_cache` identifies the recording's actual provider, model, bundle digest, and selected sample. Provider usage in a recorded response describes the original call, not a new charge at the selected provider.
+
+Request matching includes the complete messages, tools, schemas, model, sampling settings and stream mode. Only relay cache-control parameters are excluded. The reviewed model-alias mapping allows the course's NVIDIA and Nebius names to address the same recorded course scenarios; it does not assert that live providers produce identical results. No fuzzy matching is used.
+
+A maintainer can select recorded defaults from a reviewed successful walkthrough by supplying an exact request-key to recorded-entry-ID map to `llm_course_cache.package_records`. The selected IDs are part of the checksummed provenance. This changes which existing recording is used by an ordinary exact hit; it never rewrites a response. Explicit sampling traverses the admitted pool. Reviewed incorrect answers belong only to examples that explicitly compare and diagnose them; quarantined responses are excluded.

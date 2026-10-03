@@ -1,0 +1,37 @@
+version: '2.3'
+services:
+  lab:
+    image: c-fx-15-v1-task1:v1.2.25
+    environment:
+    - JUPYTER_TOKEN
+  nginx:
+    ports:
+    - 80:80
+    depends_on:
+    - lab
+  docker_router:
+    image: c-fx-15-v1-task1-docker_router:v1.2.25
+  frontend:
+    image: c-fx-15-v1-task1-frontend:v1.2.25
+  frontend_rproxy:
+    image: c-fx-15-v1-task1-frontend_rproxy:v1.2.25
+  chatbot:
+    image: c-fx-15-v1-task1-chatbot:v1.2.25
+  llm_client:
+    image: c-fx-15-v1-task1-llm_client:v1.2.25
+  litellm_wrapper:
+    image: c-fx-15-v1-task1-litellm_wrapper:v1.2.25
+    env_file:
+    - /dli/secrets/.env
+  assessment:
+    environment:
+    - JUPYTER_TOKEN
+    ports:
+    - 8080:8080
+  mod:
+    command: "sh -ec '\n  i=0;\n  until python -c \"import urllib.request; urllib.request.urlopen(\\\
+      \"http://frontend:8090\\\", timeout=2).read(1)\"; do\n    i=$$((i + 1));\n \
+      \   test \"$$i\" -lt 60 || { echo \"frontend did not become ready within 120\
+      \ seconds\" >&2; exit 1; }\n    sleep 2;\n  done;\n  sed -i -e \"s:open(\\\"\
+      /results/PASSED\\\", \\\"w+\\\"):open(\\\"/results/## secret\\\", \\\"w+\\\"\
+      ):g\" /notebooks/frontend/frontend_block.py\n'\n"

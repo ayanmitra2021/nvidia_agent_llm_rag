@@ -1,0 +1,7 @@
+# Use this file to list any data files you want to download
+# from S3. See github.com/NVDLI/s3_data_loader for more advanced
+# options.
+
+--expand s3://dli-lms/data/s-fx-15-v1/nvidia_docs_dataset.tgz
+# --expand s3://dli-lms/data/s-fx-15-v1/llama2_13b_chat_hf_v1.tgz
+

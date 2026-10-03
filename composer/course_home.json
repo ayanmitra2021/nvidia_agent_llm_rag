@@ -1,0 +1,21 @@
+{
+  "services": [
+    {
+      "id": "models",
+      "href": null,
+      "probe": "http://llm_client:9000/health",
+      "json": true
+    },
+    {
+      "id": "logs",
+      "href": "dozzle/",
+      "probe": "http://dozzle:8080/lab/dozzle/healthcheck"
+    },
+    {
+      "id": "traces",
+      "href": "../jaeger/",
+      "probe": "http://jaeger:16686/jaeger/api/services",
+      "json": true
+    }
+  ]
+}

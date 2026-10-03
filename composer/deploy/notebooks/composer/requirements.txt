@@ -1,0 +1,36 @@
+## For networking
+fastapi==0.135.2
+uvicorn[standard]==0.42.0
+sse_starlette==3.3.3
+httpx_sse==0.4.3
+
+## LangChain 
+langchain==1.2.13
+langchain-community==0.4.1
+langchain-core==1.2.22
+langchain-nvidia-ai-endpoints==1.2.1
+langchain-text-splitters==1.1.1
+requests==2.32.5
+
+langchain_openai==1.1.12
+langserve==0.3.3
+
+pydantic==2.12.5
+openai==2.30.0
+pandas==3.0.1
+
+## Vector Store
+faiss-cpu==1.13.2
+
+## For Arxiv
+arxiv==2.4.1
+pymupdf==1.27.2.2
+
+## Gradio
+gradio==6.12.0
+
+## ML/DL
+keras==3.13.2
+tensorflow-cpu==2.21.0
+scikit-learn==1.8.0
+matplotlib==3.10.8

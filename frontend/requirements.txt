@@ -1,0 +1,27 @@
+## For networking
+gunicorn==25.2.0
+pandas==3.0.1
+flask-sse==1.0.0
+httpx_sse==0.4.3
+starlette==0.52.1
+
+## LangChain
+langserve==0.3.3
+langchain==1.2.13
+langchain-core==1.2.22
+langchain-nvidia-ai-endpoints==1.2.1
+langchain-text-splitters==1.1.1
+langchain-community==0.4.1
+langchain_openai==1.1.12
+
+## Vectorstores
+faiss-cpu==1.13.2
+
+## For Arxiv
+arxiv==2.4.1
+pymupdf==1.27.2.2
+
+## Gradio
+gradio==6.12.0
+fastapi==0.135.2
+pydantic==2.12.5

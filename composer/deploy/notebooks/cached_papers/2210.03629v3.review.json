@@ -1,0 +1,63 @@
+{
+  "schema": "dli-pdf-text-review/1",
+  "pdf_sha256": "f285b0971ae4a790e402fb93966bed3adde2cf0a04977d08b2b40d6ab0cace69",
+  "text_sha256": "6fb914291df822604c062b4bf599567365ee6f7103005403c145ec127b82cb7b",
+  "rejected": [
+    {
+      "artifact": "native PDF extraction",
+      "reason": "Embedded font glyph identifiers were emitted as controls and shifted ASCII in figures; CMEX brackets also lacked Unicode mappings."
+    },
+    {
+      "artifact": "unreviewed full-page OCR candidate",
+      "text_sha256": "6a8f09a6bc0652dc72c9bb952aaf6f33b58da85c39a0439a370a0418b8df813e",
+      "reason": "OCR merged figure columns, corrupted highlighted text, and altered mathematics and product identifiers. Replaced with source-reviewed figure transcriptions and native text."
+    }
+  ],
+  "pages": [
+    {
+      "page": 1,
+      "anchors": [
+        "Apple Remote",
+        "keyboard function keys",
+        "Nothing happens."
+      ]
+    },
+    {
+      "page": 2,
+      "anchors": [
+        "ct ↦at",
+        "success rates"
+      ]
+    },
+    {
+      "page": 13,
+      "anchors": [
+        "HotpotQA label: 2,664",
+        "2,884 rooms and 220 suites",
+        "Finish[3,104]"
+      ]
+    },
+    {
+      "page": 14,
+      "anchors": [
+        "struck through:",
+        "Nothing happens.",
+        "You put the keychain 2 in/on the safe 1."
+      ]
+    },
+    {
+      "page": 21,
+      "anchors": [
+        "B078GWRC1J",
+        "$10.99"
+      ]
+    },
+    {
+      "page": 30,
+      "anchors": [
+        "B0061IVFZE",
+        "$85.0"
+      ]
+    }
+  ]
+}

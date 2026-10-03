@@ -1,0 +1,126 @@
+{
+  "repository": "https://gitlab.com/nvidia/dli/content/c-fx-11-v1",
+  "revision": "8291dd102f97b59884dd03545c487ca9390610b1",
+  "path": "task1/services/model",
+  "local_retrieval_source": {
+    "repository": "https://gitlab.com/nvidia/dli/content/c-fx-15-v1",
+    "revision": "c8325742a6b916674c922c0346a68d5e123b8d3e"
+  },
+  "files": [
+    {
+      "path": "litellm_service.py",
+      "sha256": "37805b769057af5a29d225395fec537b1c651a7639ce503015254c59f697f861",
+      "upstream_sha256": "304f6f56319fef43553382fbe1b3767ebf17e1c12bdbc254fade456e9d36c3ff",
+      "adaptation": "Retain legacy NVIDIA inference credential support and make verified recordings reachable during discovery failure. Port S-FX-43 model-aware primary-only deadlines and lazy SDK initialization boundary; preserve explicit runtime-profile limits."
+    },
+    {
+      "path": "litellm_wrapper-requirements.txt",
+      "sha256": "4ef109726138ba6a5786d4b2656dd66355084dc511aa7e4303053e1f75d8c657",
+      "upstream_sha256": "4ef109726138ba6a5786d4b2656dd66355084dc511aa7e4303053e1f75d8c657"
+    },
+    {
+      "path": "litellm_wrapper.Dockerfile",
+      "sha256": "94f128fa22db3e0f61b11883071a579847138424a379a115bd07c025edb81ea5",
+      "upstream_sha256": "94f128fa22db3e0f61b11883071a579847138424a379a115bd07c025edb81ea5"
+    },
+    {
+      "path": "litellm_wrapper.py",
+      "sha256": "2fa2bf8cd738381673251979ffc5baaa6019269a3059f95f21a72f8a2207ebf4",
+      "upstream_sha256": "2fa2bf8cd738381673251979ffc5baaa6019269a3059f95f21a72f8a2207ebf4"
+    },
+    {
+      "path": "llm_cache_bundle.py",
+      "sha256": "5245660558ccaa9f3629d45b5733261636c60657b34ef5a6e3fce0327f5cf112",
+      "upstream_sha256": "5245660558ccaa9f3629d45b5733261636c60657b34ef5a6e3fce0327f5cf112"
+    },
+    {
+      "path": "llm_cache_pacing.py",
+      "sha256": "673b8a86c5c637b7caaeed7533236ac3af2e8721984c1e9bb43d578d0883c932",
+      "upstream_sha256": "673b8a86c5c637b7caaeed7533236ac3af2e8721984c1e9bb43d578d0883c932"
+    },
+    {
+      "path": "llm_circuit.py",
+      "sha256": "88856fc4919e30ff38c5ba3f5eaa0920897530450b7ee71023fcd595a08994ec",
+      "upstream_sha256": "88856fc4919e30ff38c5ba3f5eaa0920897530450b7ee71023fcd595a08994ec"
+    },
+    {
+      "path": "llm_client-requirements.txt",
+      "sha256": "2af0fb94c5d97503bfa50675f99099ea7d0c584b2ec4dfb9e652b17354d96878",
+      "upstream_sha256": "2af0fb94c5d97503bfa50675f99099ea7d0c584b2ec4dfb9e652b17354d96878"
+    },
+    {
+      "path": "llm_client.Dockerfile",
+      "sha256": "ff71a454584c9ff629c6c9120583c2264d963035b3d226b37a02cab968e21e3d",
+      "upstream_sha256": "3563b6b7192be49dd5b52456e6c4dc7cba7dcb6290c6e46c936aab5ac419e5a8",
+      "adaptation": "Preserve pinned CPU retrieval model downloads and offline warmup."
+    },
+    {
+      "path": "llm_client.py",
+      "sha256": "424512ac31cdc1cd5e0801495d701aa585e20f5a44cadf5510eff1dc73bc4246",
+      "upstream_sha256": "da8bde1c5ff27692b6978d7e54b5ab7111c18e418b17d62bf0055b93a43f6b4b",
+      "adaptation": "Optional local retrieval and legacy RAG catalog controls; facade retains one selected provider."
+    },
+    {
+      "path": "llm_course_cache.py",
+      "sha256": "bd22b7ee339fbeca268e38c4241c4c102533838030e64aef27aa2e8b03b47f21",
+      "upstream_sha256": "013da02332f198bd38895918a958fa62a3f1266c207395572d87a392070ee72e",
+      "adaptation": "Unify explicit sample pools for verified NVIDIA token-limit aliases without rekeying source records."
+    },
+    {
+      "path": "llm_output.py",
+      "sha256": "0175a49c61e5bd45d1a93f58f83f5e5d829ab9a2b06f7bf9600df645d8185084",
+      "upstream_sha256": "0175a49c61e5bd45d1a93f58f83f5e5d829ab9a2b06f7bf9600df645d8185084"
+    },
+    {
+      "path": "llm_profile.py",
+      "sha256": "5e6cafabe0191714d8937b7d9c3604657f35fbd762f99e853aeefc5c183f488f",
+      "upstream_sha256": "5e6cafabe0191714d8937b7d9c3604657f35fbd762f99e853aeefc5c183f488f"
+    },
+    {
+      "path": "llm_request.py",
+      "sha256": "8223862abcc84c198f12a17261095c9881897b1b92bb26da3e41d8ace804e540",
+      "upstream_sha256": "8223862abcc84c198f12a17261095c9881897b1b92bb26da3e41d8ace804e540"
+    },
+    {
+      "path": "llm_runtime.py",
+      "sha256": "d01206a0c171d677677140a0714f460f4631da094c99bd56fc8f8e6381ee5ce1",
+      "upstream_sha256": "d01206a0c171d677677140a0714f460f4631da094c99bd56fc8f8e6381ee5ce1"
+    },
+    {
+      "path": "llm_store.py",
+      "sha256": "0d7b86ad2caceba2397c0cfe157fe4c56b6fe431f3198e9f670feaecf93fdc02",
+      "upstream_sha256": "0d7b86ad2caceba2397c0cfe157fe4c56b6fe431f3198e9f670feaecf93fdc02"
+    },
+    {
+      "path": "llm_tracing.py",
+      "sha256": "3776b560b20f7bf9537a3b93d4b7b6ad855c80a316e6e6c5c2f3985ef8eada72",
+      "upstream_sha256": "f6e58aab133a5b24286c3deaccb1a0b38c1de41dc46b4603591e1d9afbb34df2",
+      "adaptation": "Trace ranking and identify local inference."
+    },
+    {
+      "path": "llm_ttft.py",
+      "sha256": "7000e442f61e20e755fb9530f1a15d8b1e6572982cdaa15d8e687a863b1f1fc6",
+      "upstream_sha256": "7000e442f61e20e755fb9530f1a15d8b1e6572982cdaa15d8e687a863b1f1fc6"
+    },
+    {
+      "path": "local_retrieval.py",
+      "sha256": "546a4c1afb110e76e1bfb23f6a2fc6e519d79d8da10f80fcb0c4328820e8258e",
+      "adaptation": "Preserve existing C-FX-15 embedding/reranking implementations with readiness and input validation."
+    },
+    {
+      "path": "provider_compat.py",
+      "sha256": "40199de3f303a514d8984a80858889c0ccafe3d977280db07be7dea821ca6c68",
+      "upstream_sha256": "40199de3f303a514d8984a80858889c0ccafe3d977280db07be7dea821ca6c68"
+    },
+    {
+      "path": "provider_policy.py",
+      "sha256": "88186e2e28b47b0566068b764e4a5632c800753dde7c485e8096d94d6bf97748",
+      "upstream_sha256": "88186e2e28b47b0566068b764e4a5632c800753dde7c485e8096d94d6bf97748"
+    },
+    {
+      "path": "proxy_status.html",
+      "sha256": "28559222650cdc655b9b34bc908c3b81086a0c56cef36806d0a02120b9a21231",
+      "upstream_sha256": "28559222650cdc655b9b34bc908c3b81086a0c56cef36806d0a02120b9a21231"
+    }
+  ]
+}

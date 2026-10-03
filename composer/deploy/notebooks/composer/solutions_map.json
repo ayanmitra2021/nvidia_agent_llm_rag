@@ -1,0 +1,269 @@
+{
+  "schema": "dli-solutions-map/1",
+  "owner": "translation_web.json",
+  "languages": [
+    "en",
+    "tw",
+    "zh",
+    "ja"
+  ],
+  "assessment_policy": "unchanged",
+  "mappings": [
+    {
+      "notebook": "00_jupyterlab.ipynb",
+      "cell_id": "00_jupyterlab-6",
+      "exercise_sha256": "1e48799bbb9035fc2539c06ffb83810c0b8229dc5c3bf532c27c8815bcda6869",
+      "sources": [
+        "00_jupyterlab.ipynb#6"
+      ],
+      "source_cells": [
+        {
+          "reference": "00_jupyterlab.ipynb#6",
+          "sha256": "1e48799bbb9035fc2539c06ffb83810c0b8229dc5c3bf532c27c8815bcda6869"
+        }
+      ],
+      "solution_sha256": "f5b26d8e8f24a8bd1d15a0a0b9f932cce9e94a01590538f7eb47ca7b1b134209",
+      "adaptation": "Preserve current standalone interfaces; supply explicit worked or noninteractive code."
+    },
+    {
+      "notebook": "03_langchain_intro.ipynb",
+      "cell_id": "03_langchain_intro-13",
+      "exercise_sha256": "a04d2fa8b00be8cefb758df81b34a1359753514b35c258031bb59a11818d00b7",
+      "sources": [
+        "03_langchain_intro.ipynb#13"
+      ],
+      "source_cells": [
+        {
+          "reference": "03_langchain_intro.ipynb#13",
+          "sha256": "a04d2fa8b00be8cefb758df81b34a1359753514b35c258031bb59a11818d00b7"
+        }
+      ],
+      "solution_sha256": "85a98effd8596b83e320a153d7d8459f8cc5264014c98c27865d5ec6ceb0bd27",
+      "adaptation": "Preserve current standalone interfaces; supply explicit worked or noninteractive code."
+    },
+    {
+      "notebook": "03_langchain_intro.ipynb",
+      "cell_id": "03_langchain_intro-21",
+      "exercise_sha256": "9eca81595753442fedc9a27539cb4eff03bf560c01321e85dcd5179580ef7df3",
+      "sources": [
+        "solutions/03_solutions.ipynb#1"
+      ],
+      "solution_sha256": "142dd1e95d34a026e742e0fc00e0f5f32dc128933d65d10447f7958d38e59b53",
+      "source_cells": [
+        {
+          "reference": "solutions/03_solutions.ipynb#1",
+          "sha256": "776bbf188d267c8c0bae5b1942dbe739bebd6f8c580c234bf7d7451a36a908b1"
+        }
+      ],
+      "adaptation": "Preserve current standalone interfaces; supply explicit worked or noninteractive code."
+    },
+    {
+      "notebook": "03_langchain_intro.ipynb",
+      "cell_id": "03_langchain_intro-22",
+      "exercise_sha256": "fbb6f37a6bf0aa45b2943b5239a323032487377c3fa290d691f33d6f5e2bf8a5",
+      "sources": [
+        "03_langchain_intro.ipynb#22"
+      ],
+      "source_cells": [
+        {
+          "reference": "03_langchain_intro.ipynb#22",
+          "sha256": "fbb6f37a6bf0aa45b2943b5239a323032487377c3fa290d691f33d6f5e2bf8a5"
+        }
+      ],
+      "solution_sha256": "eda9b1a06af446022eb34531b39d08c4d79c476919e5d34cc49af5f95cba1c0d",
+      "adaptation": "Preserve current standalone interfaces; supply explicit worked or noninteractive code."
+    },
+    {
+      "notebook": "03_langchain_intro.ipynb",
+      "cell_id": "03_langchain_intro-24",
+      "exercise_sha256": "5715de8a041d7d38f4c936ada0907804c93c3100428ee183f037d80a9ccad812",
+      "solution_sha256": "1b7f964674bae13401a154a8a2479075daaa98a26ce0b98f2bb4060e0ac0a036",
+      "sources": [
+        "03_langchain_intro.ipynb#03_langchain_intro-24"
+      ],
+      "adaptation": "Preserve current standalone interfaces; supply explicit worked or noninteractive code.",
+      "source_cells": [
+        {
+          "reference": "03_langchain_intro.ipynb#03_langchain_intro-24",
+          "sha256": "5715de8a041d7d38f4c936ada0907804c93c3100428ee183f037d80a9ccad812"
+        }
+      ]
+    },
+    {
+      "notebook": "04_running_state.ipynb",
+      "cell_id": "04_running_state-37",
+      "exercise_sha256": "7b0314e292467045bfe3bed26c61d41e656a199b5ca51f70431cd90be484b0ed",
+      "sources": [
+        "solutions/04_solutions.ipynb#1"
+      ],
+      "solution_sha256": "3c9f01f36aeb817c0c81bf5849df504bff3194458e94ca00f7ebd16346ee78f1",
+      "source_cells": [
+        {
+          "reference": "solutions/04_solutions.ipynb#1",
+          "sha256": "bd26f6cd168d0a1bc5a26be040e1cae23f8f5bea619e8594b66f247c50de98f2"
+        }
+      ],
+      "adaptation": "Preserve current standalone interfaces; supply explicit worked or noninteractive code."
+    },
+    {
+      "notebook": "05_documents.ipynb",
+      "cell_id": "05_documents-7",
+      "exercise_sha256": "97741b16d65af0c150b4d81831e519dfed168184a4bb0db560c410e78d45cb2f",
+      "solution_sha256": "a4e87ee2ed90f159220a825636ce11270db9121cff8825ebcc8652e55126a853",
+      "sources": [
+        "05_documents.ipynb#05_documents-7"
+      ],
+      "adaptation": "Preserve current standalone interfaces; supply explicit worked or noninteractive code.",
+      "source_cells": [
+        {
+          "reference": "05_documents.ipynb#05_documents-7",
+          "sha256": "97741b16d65af0c150b4d81831e519dfed168184a4bb0db560c410e78d45cb2f"
+        }
+      ]
+    },
+    {
+      "notebook": "05_documents.ipynb",
+      "cell_id": "05_documents-22",
+      "exercise_sha256": "90765c2e8b6df1522372ba1e0617c45bd2b767f3d9e6c6f2afc1dfd54792f0e2",
+      "sources": [
+        "solutions/05_solution.ipynb#0"
+      ],
+      "solution_sha256": "e222e8009db4f620702aeaa2c187c86f978cd690d6480c206e768e0eacf0d0a2",
+      "source_cells": [
+        {
+          "reference": "solutions/05_solution.ipynb#0",
+          "sha256": "52f34ee02a2fd6bb619c2b9642cc56d4176147cff8e2c70f636b9b24a037526d"
+        }
+      ],
+      "adaptation": "Preserve current standalone interfaces; supply explicit worked or noninteractive code."
+    },
+    {
+      "notebook": "06_embeddings.ipynb",
+      "cell_id": "06_embeddings-16",
+      "exercise_sha256": "fd686f21e65e81768abb5f82963a851e318815b2b05bed0578ce8188abbe5ed6",
+      "sources": [
+        "solutions/06_solutions.ipynb#1"
+      ],
+      "solution_sha256": "e93536fe461db40e2e696ae4e3214385bc4218a963c31b11cd75d149cd5ce69c",
+      "source_cells": [
+        {
+          "reference": "solutions/06_solutions.ipynb#1",
+          "sha256": "938ac0b81b224c65dc6ff0881deb566548217a296ec5edb7e873512f2dc99d69"
+        }
+      ],
+      "adaptation": "Preserve current standalone interfaces; supply explicit worked or noninteractive code."
+    },
+    {
+      "notebook": "07_vectorstores.ipynb",
+      "cell_id": "07_vectorstores-33",
+      "exercise_sha256": "67dfed58ff681835df1c7e473e49f8fac3269ceba354d279d58950629b6bd251",
+      "solution_sha256": "739827440b5810afd507595aab432218feb1288e5dafd3a4aee4881a5d5fedb0",
+      "sources": [
+        "07_vectorstores.ipynb#07_vectorstores-33"
+      ],
+      "adaptation": "Preserve current standalone interfaces; supply explicit worked or noninteractive code.",
+      "source_cells": [
+        {
+          "reference": "07_vectorstores.ipynb#07_vectorstores-33",
+          "sha256": "67dfed58ff681835df1c7e473e49f8fac3269ceba354d279d58950629b6bd251"
+        }
+      ]
+    },
+    {
+      "notebook": "07_vectorstores.ipynb",
+      "cell_id": "07_vectorstores-39",
+      "exercise_sha256": "e8e831fd34ab14d62c5350ca022b40beeeaaf8ec5a3af66e824d8c43575f37ce",
+      "sources": [
+        "solutions/07_solutions.ipynb#1"
+      ],
+      "solution_sha256": "8297b610d1f6e6509eba584772745ac67017e4812f5b06ebc448525cb3648770",
+      "source_cells": [
+        {
+          "reference": "solutions/07_solutions.ipynb#1",
+          "sha256": "c82b937cb1cee544c1e0015353e3701bcedf8376cb01152e7a8f39631713d630"
+        }
+      ],
+      "adaptation": "Preserve current standalone interfaces; supply explicit worked or noninteractive code."
+    },
+    {
+      "notebook": "08_evaluation.ipynb",
+      "cell_id": "08_evaluation-8",
+      "exercise_sha256": "657e016dc9b4648fe860024cdc73ecfb5e7045a10c7663cd74995e232bea8141",
+      "sources": [
+        "solutions/08_solutions.ipynb#1"
+      ],
+      "solution_sha256": "8abbcfc75172c7b4305e4d02aeff9ee2659126de2de7dcf7bbd950e0fd918c6a",
+      "source_cells": [
+        {
+          "reference": "solutions/08_solutions.ipynb#1",
+          "sha256": "f8c796a3afa7576d92da1825053a168ee112dd91146f49ba7864804269fbd3bb"
+        }
+      ],
+      "adaptation": "Preserve current standalone interfaces; supply explicit worked or noninteractive code."
+    },
+    {
+      "notebook": "08_evaluation.ipynb",
+      "cell_id": "08_evaluation-12",
+      "exercise_sha256": "f21be606f497c6214dbafb35d2d3ef6677615ac41ccb339d5bdb2faee611f9cb",
+      "sources": [
+        "solutions/08_solutions.ipynb#3"
+      ],
+      "solution_sha256": "836355e3d69652276856f91a6cfd486cae37afcc0aaf00ec23814b09fb4628e7",
+      "source_cells": [
+        {
+          "reference": "solutions/08_solutions.ipynb#3",
+          "sha256": "4226995ea5b59686a5898e55abe4d5d876c33658f47a8575e0b14ff64b1eb756"
+        }
+      ],
+      "adaptation": "Preserve current standalone interfaces; supply explicit worked or noninteractive code."
+    },
+    {
+      "notebook": "64_guardrails.ipynb",
+      "cell_id": "64_guardrails-17",
+      "exercise_sha256": "845638e2073e23d889d8ef755387fd7bbd820a2e51f94507ff4067108ecb0f4b",
+      "sources": [
+        "solutions/64_solutions.ipynb#1"
+      ],
+      "solution_sha256": "516e91ca67fc89f27eb039179df121e98a11484f2fe8a49292050f689c79cce1",
+      "source_cells": [
+        {
+          "reference": "solutions/64_solutions.ipynb#1",
+          "sha256": "87da20bcf5972d45e767da33f649a3d9c4de25f3935bdd7ba6886246086c2a14"
+        }
+      ],
+      "adaptation": "Preserve current standalone interfaces; supply explicit worked or noninteractive code."
+    },
+    {
+      "notebook": "64_guardrails.ipynb",
+      "cell_id": "64_guardrails-21",
+      "exercise_sha256": "5770f6bc17d8ca36ac0a340d4e23ef0f2fb5107005e2a1c74466d490afba47d0",
+      "solution_sha256": "5df6b2f7f316f197116285ccb31b53cc01eef954281aba6c2644bd4c93340292",
+      "sources": [
+        "64_guardrails.ipynb#64_guardrails-21"
+      ],
+      "adaptation": "Preserve current standalone interfaces; supply explicit worked or noninteractive code.",
+      "source_cells": [
+        {
+          "reference": "64_guardrails.ipynb#64_guardrails-21",
+          "sha256": "5770f6bc17d8ca36ac0a340d4e23ef0f2fb5107005e2a1c74466d490afba47d0"
+        }
+      ]
+    },
+    {
+      "notebook": "64_guardrails.ipynb",
+      "cell_id": "64_guardrails-25",
+      "exercise_sha256": "04593e271f89acc168f912a9c409be8c7f2ea90db52cee9fd574a459996d0776",
+      "sources": [
+        "solutions/64_solutions.ipynb#3"
+      ],
+      "solution_sha256": "332ee2633ddb84c5d2c739c3207748f3fdcebffd6231d4b1d4c6226c9a9b8a6b",
+      "source_cells": [
+        {
+          "reference": "solutions/64_solutions.ipynb#3",
+          "sha256": "f4b62508ff4ab9990241db6380133730b7d2360e52246e9a8d6e022e0763977d"
+        }
+      ],
+      "adaptation": "Preserve current standalone interfaces; supply explicit worked or noninteractive code."
+    }
+  ]
+}

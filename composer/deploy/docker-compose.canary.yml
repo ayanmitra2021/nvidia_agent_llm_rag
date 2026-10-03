@@ -1,0 +1,9 @@
+version: '2.3'
+
+services:
+  lab:
+    volumes:
+      - ./canary-smoke-test.sh:/workspace/canary-smoke-test.sh:ro
+    entrypoint:
+      - /workspace/canary-smoke-test.sh
+    command: []
